@@ -19,14 +19,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val ggt = getGGT(nom,denom)
 
-        nominator.setText(nom/ggt)
-        denominator.setText(denom/ggt)
+        nominator.setText((nom/ggt).toString())
+        denominator.setText((denom/ggt).toString())
     }
 
     fun getGGT(n1: Int, n2:Int) : Int{
         var divider = n2
         var rest = n1%n2
-        var ggt = 0;
+        var ggt = 0
         while(rest!=0){
             ggt = rest
 
@@ -38,6 +38,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 break
             }
         }
-        return ggt;
+        return ggt
     }
 }
