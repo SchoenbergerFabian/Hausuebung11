@@ -7,46 +7,29 @@ import java.util.Scanner;
 import static java.time.temporal.ChronoUnit.*;
 
 public class Main {
-    private static LocalDateTime date1;
-    private static LocalDateTime date2;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in,"Windows-1252");
         System.out.println("1st date:");
-        date1 = getDateInput(scanner);
+        LocalDateTime date1 = getDateInput(scanner);
         System.out.println("2nd date:");
-        date2 = getDateInput(scanner);
+        LocalDateTime date2 = getDateInput(scanner);
 
         if(date1.isAfter(date2)){
-            swap();
+            LocalDateTime[] datetimes = swap(date1, date2);
+            date1 = datetimes[0];
+            date2 = datetimes[1];
         }
 
         if(YEARS.between(date1,date2)>0){
-            String output = "\n";
-            long dayDiff = DAYS.between(date1,date2);
-            if(dayDiff!=0){
-                output+="days: "+dayDiff+"\n";
-            }
-            long monthDiff = MONTHS.between(date1,date2);
-            if(monthDiff!=0){
-                output+="months: "+monthDiff+"\n";
-            }
-            long yearDiff = YEARS.between(date1,date2);
-            if(yearDiff!=0){
-                output+="years: "+yearDiff+"\n";
-            }
-            long hourDiff = HOURS.between(date1,date2);
-            if(hourDiff!=0){
-                output+="hours: "+hourDiff+"\n";
-            }
-            long minuteDiff = MINUTES.between(date1,date2);
-            if(minuteDiff!=0){
-                output+="minutes: "+minuteDiff+"\n";
-            }
-            long secondDiff = SECONDS.between(date1,date2);
-            if(secondDiff!=0){
-                output+="seconds: "+secondDiff+"\n";
-            }
+            long[] differences = getDifferences(date1, date2);
+
+            String output = "\ndays: "+differences[0]
+                    +"\nmonths: "+differences[1]
+                    +"\nyears: "+differences[2]
+                    +"\nhours: "+differences[3]
+                    +"\nminutes: "+differences[4]
+                    +"\nseconds: "+differences[5];
 
             System.out.println(output);
 
@@ -62,7 +45,20 @@ public class Main {
         }
     }
 
-    private static void swap(){
+    public static long[] getDifferences(LocalDateTime date1,LocalDateTime date2){
+        long[] differences = new long[6];
+        differences[0] = DAYS.between(date1,date2);
+        differences[1] = MONTHS.between(date1,date2);
+        differences[2] = YEARS.between(date1,date2);
+        differences[3] = HOURS.between(date1,date2);
+        differences[4] = MINUTES.between(date1,date2);
+        differences[5] = SECONDS.between(date1,date2);
+        return differences;
+    }
+
+    private static LocalDateTime[] swap(LocalDateTime date1, LocalDateTime date2){
+        LocalDateTime[] datetimes = new LocalDateTime[2];
+
         int day1 = date1.getDayOfMonth();
         Month month1 = date1.getMonth();
         int year1 = date1.getYear();
@@ -77,8 +73,10 @@ public class Main {
         int minutes2 = date2.getMinute();
         int seconds2 = date2.getSecond();
 
-        date1 = LocalDateTime.of(year2,month2,day2,hours2,minutes2,seconds2);
-        date2 = LocalDateTime.of(year1,month1,day1,hours1,minutes1,seconds1);
+        datetimes[0] = LocalDateTime.of(year2,month2,day2,hours2,minutes2,seconds2);
+        datetimes[1] = LocalDateTime.of(year1,month1,day1,hours1,minutes1,seconds1);
+
+        return datetimes;
     }
 
     private static LocalDateTime getDateInput(Scanner scanner){
