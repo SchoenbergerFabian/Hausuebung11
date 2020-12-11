@@ -25,11 +25,12 @@ public class Main {
             long[] differences = getDifferences(date1, date2);
 
             String output = "\ndays: "+differences[0]
-                    +"\nmonths: "+differences[1]
-                    +"\nyears: "+differences[2]
-                    +"\nhours: "+differences[3]
-                    +"\nminutes: "+differences[4]
-                    +"\nseconds: "+differences[5];
+                    +"\nweeks: "+differences[1]
+                    +"\nmonths: "+differences[2]
+                    +"\nyears: "+differences[3]
+                    +"\nhours: "+differences[4]
+                    +"\nminutes: "+differences[5]
+                    +"\nseconds: "+differences[6];
 
             System.out.println(output);
 
@@ -46,13 +47,14 @@ public class Main {
     }
 
     public static long[] getDifferences(LocalDateTime date1,LocalDateTime date2){
-        long[] differences = new long[6];
+        long[] differences = new long[7];
         differences[0] = DAYS.between(date1,date2);
-        differences[1] = MONTHS.between(date1,date2);
-        differences[2] = YEARS.between(date1,date2);
-        differences[3] = HOURS.between(date1,date2);
-        differences[4] = MINUTES.between(date1,date2);
-        differences[5] = SECONDS.between(date1,date2);
+        differences[1] = WEEKS.between(date1,date2);
+        differences[2] = MONTHS.between(date1,date2);
+        differences[3] = YEARS.between(date1,date2);
+        differences[4] = HOURS.between(date1,date2);
+        differences[5] = MINUTES.between(date1,date2);
+        differences[6] = SECONDS.between(date1,date2);
         return differences;
     }
 
